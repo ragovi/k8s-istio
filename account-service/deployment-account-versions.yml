@@ -1,0 +1,54 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: account-service
+  labels: 
+    app: account-service
+spec:
+  selector:
+    app: account-service
+  ports:
+    - port: 2222
+      protocol: TCP
+      nodePort: 30222
+      name: http
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: account-service-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account-service
+        version: v1
+    spec:
+      containers:
+      - name: account-service
+        image: account-service:1.0
+        ports:
+        - containerPort: 2222
+          protocol: TCP
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: account-service-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account-service
+        version: v2
+    spec:
+      containers:
+      - name: account-service
+        image: account-service:1.0
+        ports:
+        - containerPort: 2222
+          protocol: TCP

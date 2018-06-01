@@ -1,0 +1,20 @@
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: account-service-v2-delay
+spec:
+  destination:
+    name: account-service
+  precedence: 8
+  match:
+    request:
+      headers:
+        x-version: 
+          exact: "v2"
+  route:
+  - labels:
+      version: v2
+  httpFault:
+    delay:
+      percent: 100
+      fixedDelay: 5s
