@@ -8,10 +8,10 @@ spec:
   selector:
     app: account-service
   ports:
-    - port: 2222
-      protocol: TCP
-      nodePort: 30222
-      name: http
+  - port: 2222
+    protocol: TCP
+    nodePort: 30222
+    name: http
   type: NodePort
 
 ---
