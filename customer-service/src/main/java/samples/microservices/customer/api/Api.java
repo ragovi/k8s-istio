@@ -3,6 +3,7 @@ package samples.microservices.customer.api;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.steps.optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,7 @@ public class Api {
 	}
 	
 	@RequestMapping("/customers/{id}")
-	public Customer findById(@RequestHeader String version, @PathVariable("id") String id) {
+	public Customer findById(@RequestHeader(required=false) String version, @PathVariable("id") String id) {
 		logger.info(String.format("Customer.findById(%s)", id));
 		Customer customer = repository.findById(id);
 		if (version==null) {
