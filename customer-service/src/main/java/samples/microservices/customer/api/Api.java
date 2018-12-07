@@ -35,7 +35,7 @@ public class Api {
 	}
 	
 	@RequestMapping("/customers/{id}")
-	public Customer findById(@RequestHeader(required=false) String version, @PathVariable("id") String id) {
+	public Customer findById(@RequestHeader(name="x-version", required=false) String version, @PathVariable("id") String id) {
 		logger.info(String.format("Customer.findById(%s)", id));
 		Customer customer = repository.findById(id);
 		if (version==null) {
