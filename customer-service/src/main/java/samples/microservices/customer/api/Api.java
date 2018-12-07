@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,10 +34,12 @@ public class Api {
 	}
 	
 	@RequestMapping("/customers/{id}")
-	public Customer findById(@PathVariable("id") String id) {
+	public Customer findById(@RequestHeader String version, @PathVariable("id") String id) {
 		logger.info(String.format("Customer.findById(%s)", id));
 		Customer customer = repository.findById(id);
-		String version = "v" + ((int)(Math.random() * 2) + 1);
+		if (version==null) {
+			version = "v" + ((int)(Math.random() * 2) + 1);
+		}
 		List<Account> accounts =  accountClient.getAccounts(version, id);
 		customer.setAccounts(accounts);
 		return customer;
