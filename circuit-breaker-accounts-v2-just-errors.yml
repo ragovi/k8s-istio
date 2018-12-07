@@ -9,7 +9,7 @@ spec:
       version: v2
   circuitBreaker:
     simpleCb:
-      sleepWindow: 15s
+      sleepWindow: 45s
       httpDetectionInterval: 1s
       httpMaxEjectionPercent: 50
       httpConsecutiveErrors: 1
