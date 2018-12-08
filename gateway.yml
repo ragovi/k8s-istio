@@ -51,4 +51,3 @@ spec:
         subset: v2
         port:
           number: 2222
-
